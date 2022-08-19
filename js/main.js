@@ -15,13 +15,28 @@ function findMatchesWilaya(id, cities) {
   });
 }
 let search = document.querySelector("input");
-let ul = document.querySelector("ul");
+let result = document.querySelector(".result");
 
-search.addEventListener("keyup", function () {
-  ul.innerHTML = "";
+let ul = document.createElement("ul");
+let lii = document.querySelectorAll("li");
+let count = 0;
+let countMax = 10;
 
-  datafinal = findMatches(this.value, cities);
-  datafinal.forEach((city) => {
+addToUl(count, countMax);
+
+function addToUl() {
+  search.addEventListener("keyup", function () {
+    ul.innerHTML = "";
+
+    datafinal = findMatches(this.value, cities);
+    add(count, countMax);
+    if (this.value === "") {
+      ul.innerHTML = "";
+    }
+  });
+}
+function add(i, countMax) {
+  for (i; i < countMax; i++) {
     let top = document.createElement("div");
     top.className = "top";
     let caption = document.createElement("div");
@@ -36,12 +51,11 @@ search.addEventListener("keyup", function () {
     let wilaya = document.createElement("span");
     wilaya.className = "wilaya";
     let codepostal = document.createElement("span");
-    let comData = document.createTextNode(city.post_name);
-    let wilayaExact = findMatchesWilaya(city.wilaya_code, cities);
-    console.log();
+    let comData = document.createTextNode(datafinal[i].post_name);
+    let wilayaExact = findMatchesWilaya(datafinal[i].wilaya_code, cities);
     let comDataid = document.createTextNode(wilayaExact[0].wilaya_name + " , ");
 
-    let codeData = document.createTextNode(city.post_code);
+    let codeData = document.createTextNode(datafinal[i].post_code);
     codepostal.className = "postal-code";
     codepostal.appendChild(codeData);
 
@@ -58,13 +72,14 @@ search.addEventListener("keyup", function () {
     li.appendChild(bottomWilaya);
 
     ul.appendChild(li);
+    result.appendChild(ul);
     li.addEventListener("click", function () {
       if (this.className == "") {
         this.classList = "opened";
         this.querySelector(".top").style.alignSelf = "flex-start";
-        caption.innerHTML = `<p>البلدية: <span>${city.commune_name}</span></p>`;
-        bottom.innerHTML = `<p>الدائرة: <span>${city.daira_name}</span></p>  `;
-        bottomWilaya.innerHTML = `<p>الولاية: <span>${city.wilaya_name}</span></p>`;
+        caption.innerHTML = `<p>البلدية: <span>${datafinal[i].commune_name}</span></p>`;
+        bottom.innerHTML = `<p>الدائرة: <span>${datafinal[i].daira_name}</span></p>  `;
+        bottomWilaya.innerHTML = `<p>الولاية: <span>${datafinal[i].wilaya_name}</span></p>`;
       } else {
         this.classList = "";
         this.querySelector(".top").style.alignSelf = "center";
@@ -73,8 +88,17 @@ search.addEventListener("keyup", function () {
         bottomWilaya.innerHTML = ``;
       }
     });
-    if (this.value === "") {
-      ul.innerHTML = "";
-    }
+  }
+  let lis = document.createElement("li");
+  let btn = document.createElement("span");
+  btn.className = "btn";
+  let title = document.createTextNode("...  مازال المزيد ");
+  btn.appendChild(title);
+  lis.appendChild(btn);
+  ul.appendChild(lis);
+  lis.addEventListener("click", function () {
+    lis.remove();
+
+    add(countMax, countMax + 10);
   });
-});
+}
