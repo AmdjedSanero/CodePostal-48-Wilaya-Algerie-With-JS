@@ -9,12 +9,15 @@ function findMatches(word, cities) {
     return place.name.match(reg);
   });
 }
+function findMatchesWilaya(id, cities) {
+  return cities.filter((place) => {
+    return place.wilaya_id.match(id);
+  });
+}
 let search = document.querySelector("input");
 let ul = document.querySelector("ul");
 
 search.addEventListener("keyup", function () {
-  console.log(this.value);
-
   ul.innerHTML = "";
 
   datafinal = findMatches(this.value, cities);
@@ -25,7 +28,9 @@ search.addEventListener("keyup", function () {
     wilaya.className = "wilaya";
     let codepostal = document.createElement("span");
     let comData = document.createTextNode(city.name);
-    let comDataid = document.createTextNode("," + city.name);
+    let wilayaExact = findMatchesWilaya(city.wilaya_id, cities);
+    console.log();
+    let comDataid = document.createTextNode("," + wilayaExact[0].name);
 
     let codeData = document.createTextNode(city.post_code);
     codepostal.className = "postal-code";
