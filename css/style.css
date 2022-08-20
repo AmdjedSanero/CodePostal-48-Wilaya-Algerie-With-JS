@@ -63,8 +63,8 @@ ul {
   z-index: -1;
   box-shadow: 0 0 10px rgb(184, 184, 184);
   cursor: pointer;
-  transition: all 0.7s;
   position: relative;
+  transition: 0.6s;
 }
 
 .postal-code {
@@ -78,8 +78,10 @@ ul {
   transform: perspective(100px);
   z-index: 100;
   padding-top: 20px;
-  transition: all 0.6s;
   position: relative;
+}
+.result li.not-opened {
+  height: 60px;
 }
 .top {
   height: max-content;
@@ -87,7 +89,6 @@ ul {
   flex-direction: row;
   justify-content: center;
   align-self: center;
-  transition: all 0.6s;
 }
 .caption {
   position: absolute;
@@ -95,14 +96,13 @@ ul {
   transform: translateX(50%);
   padding-right: 20px;
   top: 55px;
-  transition: all 0.6s;
 }
 .bottom {
   position: absolute;
   right: 50%;
   transform: translateX(50%);
   padding-right: 20px;
-  transition: all 0.6s;
+  transition: 0.6s;
 }
 .bottomW {
   position: absolute;
@@ -110,7 +110,6 @@ ul {
   transform: translateX(50%);
   padding-right: 20px;
   top: 110px;
-  transition: all 0.6s;
 }
 
 .result li:nth-child(even) {
@@ -173,23 +172,3 @@ ul {
     top: 70px;
   }
 }
-/* let search = document.querySelector("input");
-let ok = document.querySelector(".ok");
-let ul = document.querySelector("ul");
-ok.addEventListener("click", function () {
-  console.log(cities);
-
-  findMatches("bis", cities);
-  console.log(cities.name);
-});
-
-cities.forEach((city) => {
-  let li = document.createElement("li");
-  let com = document.createElement("span");
-  let wilaya = document.createElement("span");
-  let codepostal = document.createElement("span");
-  com.textContent;
-  let comData = document.createTextNode(city.name);
-  com.appendChild(wilaya);
-  li.appendChild(com);
-  ul.a */

@@ -54,7 +54,10 @@ function add(i, countMax) {
     let comData = document.createTextNode(datafinal[i].post_name);
     let wilayaExact = findMatchesWilaya(datafinal[i].wilaya_code, cities);
     let comDataid = document.createTextNode(wilayaExact[0].wilaya_name + " , ");
-
+    top.style.alignSelf = "center";
+    caption.style.display = "none";
+    bottom.style.display = "none";
+    bottomWilaya.style.display = "none";
     let codeData = document.createTextNode(datafinal[i].post_code);
     codepostal.className = "postal-code";
     codepostal.appendChild(codeData);
@@ -73,19 +76,23 @@ function add(i, countMax) {
 
     ul.appendChild(li);
     result.appendChild(ul);
+    caption.innerHTML = `<p>البلدية: <span>${datafinal[i].commune_name}</span></p>`;
+    bottom.innerHTML = `<p>الدائرة: <span>${datafinal[i].daira_name}</span></p>  `;
+    bottomWilaya.innerHTML = `<p>الولاية: <span>${datafinal[i].wilaya_name}</span></p>`;
     li.addEventListener("click", function () {
       if (this.className == "") {
         this.classList = "opened";
         this.querySelector(".top").style.alignSelf = "flex-start";
-        caption.innerHTML = `<p>البلدية: <span>${datafinal[i].commune_name}</span></p>`;
-        bottom.innerHTML = `<p>الدائرة: <span>${datafinal[i].daira_name}</span></p>  `;
-        bottomWilaya.innerHTML = `<p>الولاية: <span>${datafinal[i].wilaya_name}</span></p>`;
+        this.querySelector(".bottom").style.display = "flex";
+        this.querySelector(".bottomW").style.display = "flex";
+        this.querySelector(".caption").style.display = "flex";
       } else {
         this.classList = "";
         this.querySelector(".top").style.alignSelf = "center";
-        caption.innerHTML = ``;
-        bottom.innerHTML = ``;
-        bottomWilaya.innerHTML = ``;
+        this.querySelector(".bottom").style.display = "none";
+        this.querySelector(".caption").style.display = "none";
+
+        this.querySelector(".bottomW").style.display = "none";
       }
     });
   }
