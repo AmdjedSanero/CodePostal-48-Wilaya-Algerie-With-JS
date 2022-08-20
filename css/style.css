@@ -51,6 +51,7 @@ ul {
 .result li.display {
   display: flex;
 }
+
 .result li {
   color: rgb(61, 61, 61);
   padding: 0 10px;
@@ -65,6 +66,7 @@ ul {
   transition: all 0.7s;
   position: relative;
 }
+
 .postal-code {
   position: absolute;
   right: 10px;
